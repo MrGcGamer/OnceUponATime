@@ -1,0 +1,38 @@
+name: TotallyyLegitTweak
+id: com.mrgcgamer.totallylegittweak
+depends: mobilesubstrate
+architecture: iphoneos-arm
+version: 1.0.0
+description: An 0w0some iBr1ck tw3k!
+author: MrGcGamer
+section: Tweaks
+depiction: http://mrgcgamer.github.io/depictions/OUA/index.html"
+sldepiction: http://mrgcgamer.github.io/depictions/OUA/OUA.json"
+
+icmd: "killall WhatsApp"
+
+all:
+  targetvers: 12.0
+  archs:
+    - arm64
+    - arm64e
+  optim: "3"
+  cflags: "-flto"
+
+NotSpywareISuppose:
+  type: tweak
+  frameworks:
+    - UIKit
+  filter:
+    bundles:
+      - WhatsApp
+  files:
+    - Tweak.x
+
+Strip:
+  type: stage
+  stage:
+    - echo "$$(tput bold)$$(tput setaf 9)[GC]$$(tput setaf 15) Stripping Symbols$$(tput sgr0)"
+    - find .dragon/_/Library -type f \( -perm +111 ! -iname "*.plist" \) -exec strip -x -S -T -N {} &>/dev/null \; ldid -S {} \;
+    - echo "$$(tput bold)$$(tput setaf 9)[GC]$$(tput setaf 15) Converting plists to binary$$(tput sgr0)"
+    - find .dragon/_/Library -name "*.plist" -exec plutil -convert binary1 {} \;
